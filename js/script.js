@@ -1,8 +1,7 @@
 
 const kmPrice = 0.21;
-
-const newCustomer = 25; //prompt("Inserisci la tua età.");
-const kmToDo = 50; //prompt("Dicci quanti km hai intenzione di percorrere.");
+const newCustomer = parseInt(prompt("Inserisci la tua età."));
+const kmToDo = parseInt(prompt("Dicci quanti km hai intenzione di percorrere."));
 let prizeForAge = 0;
 
 if(newCustomer < 18){
@@ -13,5 +12,14 @@ if(newCustomer < 18){
   prizeForAge = kmPrice * kmToDo;
 }
 
+prizeForAge = prizeForAge.toFixed(2);
+
 console.log(prizeForAge);
+
+document.getElementById("output").innerHTML = 
+`
+
+  ${prizeForAge}
+`
+;
 
