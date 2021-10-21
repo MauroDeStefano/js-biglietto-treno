@@ -2,40 +2,51 @@
 const kmPrice = 0.21;
 const newCustomer = parseInt(prompt("Inserisci la tua età."));
 const kmToDo = parseInt(prompt("Dicci quanti km hai intenzione di percorrere."));
-let prizeForAge = 0;
+const discountCode= prompt("aggiungi il tuo codice sconto");
+let totalPrize = 0;
 
 let validValue= "true";
 let errorMsg; 
 let output;
+let discount ="false";
+
+//Validators
 
 if(isNaN(newCustomer) || isNaN(kmToDo)){
   validValue = false;
   errorMsg = 'Inserire un numero valido';
 }
 
-if(newCustomer < 0 || newCustomer > 120){
+if(newCustomer < 0 || newCustomer > 110){
   validValue = false;
   errorMsg = 'Inserire un età credibile';
 }
 
+
+
+//This down is the discount based on the age
+
 if(newCustomer < 18){
-  prizeForAge = kmPrice * kmToDo * 0.80;
+  totalPrize = kmPrice * kmToDo * 0.80;
 }else if (newCustomer >= 65){
-  prizeForAge = kmPrice * kmToDo * 0.60;
+  totalPrize = kmPrice * kmToDo * 0.60;
 }else{  
-  prizeForAge = kmPrice * kmToDo;
+  totalPrize = kmPrice * kmToDo;
 }
 
-prizeForAge = prizeForAge.toFixed(2);
+if((discountCode == "SCONTO20") && (newCustomer <=20)){
+  totalPrize = totalPrize * 0.8;
+  discount = "true";
+}
 
-console.log(prizeForAge);
+totalPrize = totalPrize.toFixed(2);
 
 output = 
 `
   <p>Ecco il prezzo che ti abbiamo dedicato!<br>
   Siccome hai ${newCustomer} anni.<br>
-  Paghi solo
-  <strong>${prizeForAge}<strong>!!
+  Paghi
+  <strong>${totalPrize}€<strong>!!
 `
 ;
 
@@ -45,3 +56,13 @@ if(validValue){
   document.getElementById("output").innerHTML = errorMsg;
 }
 
+
+if(discountCode !== "SCONTO20" && discountCode !== ""){
+  document.getElementById("discount").innerHTML = "Codice sconto non valido";
+}else if(discountCode === ""){
+  document.getElementById("discount").innerHTML = "Nessun codice sconto inserito";
+}else if(discount){
+  document.getElementById("discount").innerHTML = "Codice non valido per la tua fascia di età";
+}else if(!discount){
+  document.getElementById("discount").innerHTML = "Codice sconto usato";
+}
