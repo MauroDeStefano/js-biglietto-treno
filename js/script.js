@@ -12,6 +12,7 @@ let discount ="false";
 
 //Validators
 
+
 if(isNaN(newCustomer) || isNaN(kmToDo)){
   validValue = false;
   errorMsg = 'Inserire un numero valido';
@@ -34,14 +35,17 @@ if(newCustomer < 18){
   totalPrize = kmPrice * kmToDo;
 }
 
-if((discountCode == "SCONTO20") && (newCustomer <=20)){
+if((discountCode === "SCONTO20") && (newCustomer <= 20)){
   totalPrize = totalPrize * 0.8;
   discount = "true";
 }
 
+
+//fix the cent range
+
 totalPrize = totalPrize.toFixed(2);
 
-output = 
+output =
 `
   <p>Ecco il prezzo che ti abbiamo dedicato!<br>
   Siccome hai ${newCustomer} anni.<br>
@@ -61,8 +65,8 @@ if(discountCode !== "SCONTO20" && discountCode !== ""){
   document.getElementById("discount").innerHTML = "Codice sconto non valido";
 }else if(discountCode === ""){
   document.getElementById("discount").innerHTML = "Nessun codice sconto inserito";
-}else if(discount){
+}else if(discount === "false"){
   document.getElementById("discount").innerHTML = "Codice non valido per la tua fascia di età";
-}else if(!discount){
+}else if(discount === "true"){
   document.getElementById("discount").innerHTML = "Codice sconto usato";
 }
